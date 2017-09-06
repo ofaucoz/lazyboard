@@ -48,8 +48,9 @@ public class WaitThread implements Runnable, Observable {
             try {
                 notifyObserver("waiting for connection...");
                         connection = notifier.acceptAndOpen();
-
-                Thread processThread = new Thread(new ProcessConnectionThread(connection));
+                ProcessConnectionThread subThread = new ProcessConnectionThread(connection);
+                Thread processThread = new Thread(subThread);
+                subThread.addObserver(listObserver.get(0));
                 processThread.start();
             } catch (Exception e) {
                 e.printStackTrace();
