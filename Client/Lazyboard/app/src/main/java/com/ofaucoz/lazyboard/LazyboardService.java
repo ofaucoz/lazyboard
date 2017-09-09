@@ -7,9 +7,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.SyncStateContract;
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,8 +15,6 @@ import java.util.UUID;
 public class LazyboardService {
     // Debugging
     private static final String TAG = "LazyboardService";
-
-    private static final String NAME_SECURE = "BluetoothChatSecure";
 
     private static final UUID MY_UUID_SECURE =
             UUID.fromString("0511a889-e39e-475b-8789-b61f74fd92d5");
@@ -49,7 +44,6 @@ public class LazyboardService {
 
     private synchronized void updateUserInterfaceTitle() {
         mState = getState();
-        Log.d(TAG, "updateUserInterfaceTitle() " + mNewState + " -> " + mState);
         mNewState = mState;
 
         // Give the new state to the Handler so the UI Activity can update
@@ -64,8 +58,6 @@ public class LazyboardService {
     }
 
     public synchronized void connect(BluetoothDevice device, boolean secure) {
-        Log.d(TAG, "connect to: " + device);
-
         // Cancel any thread attempting to make a connection
         if (mState == STATE_CONNECTING) {
             if (mConnectThread != null) {
@@ -89,8 +81,6 @@ public class LazyboardService {
 
     public synchronized void connected(BluetoothSocket socket, BluetoothDevice
             device, final String socketType) {
-        Log.d(TAG, "connected, Socket Type:" + socketType);
-
         // Cancel the thread that completed the connection
         if (mConnectThread != null) {
             mConnectThread.cancel();
@@ -118,8 +108,6 @@ public class LazyboardService {
     }
 
     public synchronized void stop() {
-        Log.d(TAG, "stop");
-
         if (mConnectThread != null) {
             mConnectThread.cancel();
             mConnectThread = null;
@@ -182,14 +170,12 @@ public class LazyboardService {
 
                 }
             } catch (IOException e) {
-                Log.e(TAG, "Socket Type: " + mSocketType + "create() failed", e);
             }
             mmSocket = tmp;
             mState = STATE_CONNECTING;
         }
 
         public void run() {
-            Log.i(TAG, "BEGIN mConnectThread SocketType:" + mSocketType);
             setName("ConnectThread" + mSocketType);
 
             // Always cancel discovery because it will slow down a connection
@@ -205,8 +191,6 @@ public class LazyboardService {
                 try {
                     mmSocket.close();
                 } catch (IOException e2) {
-                    Log.e(TAG, "unable to close() " + mSocketType +
-                            " socket during connection failure", e2);
                 }
                 connectionFailed();
                 return;
@@ -225,7 +209,6 @@ public class LazyboardService {
             try {
                 mmSocket.close();
             } catch (IOException e) {
-                Log.e(TAG, "close() of connect " + mSocketType + " socket failed", e);
             }
         }
     }
@@ -240,7 +223,6 @@ public class LazyboardService {
         private final OutputStream mmOutStream;
 
         public ConnectedThread(BluetoothSocket socket, String socketType) {
-            Log.d(TAG, "create ConnectedThread: " + socketType);
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
@@ -250,7 +232,6 @@ public class LazyboardService {
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
             } catch (IOException e) {
-                Log.e(TAG, "temp sockets not created", e);
             }
 
             mmInStream = tmpIn;
@@ -259,7 +240,6 @@ public class LazyboardService {
         }
 
         public void run() {
-            Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
             int bytes;
 
@@ -273,7 +253,6 @@ public class LazyboardService {
                     mHandler.obtainMessage(Constants.MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();
                 } catch (IOException e) {
-                    Log.e(TAG, "disconnected", e);
                     break;
                 }
             }
@@ -292,7 +271,6 @@ public class LazyboardService {
                 mHandler.obtainMessage(Constants.MESSAGE_WRITE, -1, -1, buffer)
                         .sendToTarget();
             } catch (IOException e) {
-                Log.e(TAG, "Exception during write", e);
             }
         }
 
@@ -300,7 +278,6 @@ public class LazyboardService {
             try {
                 mmSocket.close();
             } catch (IOException e) {
-                Log.e(TAG, "close() of connect socket failed", e);
             }
         }
     }

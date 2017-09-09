@@ -1,7 +1,9 @@
 package com.ofaucoz.lazyboard;
 
 import android.app.ActionBar;
+
 import java.io.UnsupportedEncodingException;
+
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -14,7 +16,6 @@ import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,12 +35,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-
-
 public class LazyboardFragment extends Fragment {
-
-    private static final String TAG = "LazyboardFragment";
 
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
@@ -79,8 +75,14 @@ public class LazyboardFragment extends Fragment {
      */
     private LazyboardService mLazyboardService = null;
 
-    ArrayList<String> historyList = new ArrayList<String>();
+    /**
+     * List of history elements
+     */
 
+    private ArrayList<String> historyList = new ArrayList<String>();
+    /**
+     * Adapter for the history ListView
+     */
     private ArrayAdapter<String> mHistoryAdapter;
 
     @Override
@@ -89,9 +91,6 @@ public class LazyboardFragment extends Fragment {
         setHasOptionsMenu(true);
         // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        // If the adapter is null, then Bluetooth is not supported
-
         if (mBluetoothAdapter == null) {
             FragmentActivity activity = getActivity();
             Toast.makeText(activity, "Bluetooth is not available", Toast.LENGTH_LONG).show();
@@ -103,12 +102,9 @@ public class LazyboardFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        // If BT is not on, request that it be enabled.
-        // setupChat() will then be called during onActivityResult
         if (!mBluetoothAdapter.isEnabled()) {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-            // Otherwise, setup the chat session
         } else if (mLazyboardService == null) {
             setupChat();
         }
@@ -140,7 +136,7 @@ public class LazyboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_lazyboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_lazyboard, container, false);
         btnSpeak = (ImageButton) view.findViewById(R.id.btnSpeak);
         FragmentActivity activity = getActivity();
 
@@ -153,13 +149,12 @@ public class LazyboardFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                String entry= (String) parent.getAdapter().getItem(position);
-                mOutEditText.setText(entry.replace("\n",""));
+                String entry = (String) parent.getAdapter().getItem(position);
+                mOutEditText.setText(entry.replace("\n", ""));
             }
         });
 
         historyListView.setAdapter(mHistoryAdapter);
-
 
 
         return view;
@@ -175,23 +170,17 @@ public class LazyboardFragment extends Fragment {
      * Set up the UI and background operations for chat.
      */
     private void setupChat() {
-        Log.d(TAG, "setupChat()");
-
-        // Initialize the compose field with a listener for the return key
         mOutEditText.setOnEditorActionListener(mWriteListener);
 
-        // Initialize the send button with a listener that for click events
         mSendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Send a message using content of the edit text widget
                 View view = getView();
                 if (null != view) {
                     TextView textView = (TextView) view.findViewById(R.id.edit_text_out);
                     String message = textView.getText().toString();
                     try {
                         sendMessage(message + "\n");
-                    }
-                    catch (UnsupportedEncodingException e){
+                    } catch (UnsupportedEncodingException e) {
                         throw new AssertionError("UTF-8 is unknown");
                     }
                 }
@@ -254,13 +243,13 @@ public class LazyboardFragment extends Fragment {
 
         // Check that there's actually something to send
         if (message.length() > 0) {
-            historyList.add(message);
-            mHistoryAdapter.notifyDataSetChanged();
-            //Log.d(TAG,System.getProperty("file.encoding"));
+            if(message != "\n") {
+                historyList.add(message);
+                mHistoryAdapter.notifyDataSetChanged();
+            }
             // Get the message bytes and tell the LazyboardService to write
-           char[] send = message.toCharArray();
-            for(char element: send) {
-                //Log.d(TAG, "message : " + Arrays.toString(send))
+            char[] send = message.toCharArray();
+            for (char element : send) {
                 mLazyboardService.write((int) element);
             }
 
@@ -281,8 +270,7 @@ public class LazyboardFragment extends Fragment {
                 String message = view.getText().toString();
                 try {
                     sendMessage(message + "\n");
-                }
-                catch (UnsupportedEncodingException e){
+                } catch (UnsupportedEncodingException e) {
                     throw new AssertionError("UTF-8 is unknown");
                 }
             }
@@ -396,17 +384,15 @@ public class LazyboardFragment extends Fragment {
                     setupChat();
                 } else {
                     // User did not enable Bluetooth or an error occurred
-                    Log.d(TAG, "BT not enabled");
                     Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,
                             Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                 }
-            case RESULT_SPEECH: {
+            case RESULT_SPEECH:
                 if (null != data) {
 
                     ArrayList<String> text = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    //Log.d(TAG,text.get(0));
                     try {
                         sendMessage(text.get(0));
                         sendMessage("\n");
@@ -416,8 +402,6 @@ public class LazyboardFragment extends Fragment {
                 }
 
                 break;
-            }
-
         }
     }
 
@@ -451,7 +435,7 @@ public class LazyboardFragment extends Fragment {
                 startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
                 return true;
             }
-                        case R.id.discoverable: {
+            case R.id.discoverable: {
                 // Ensure this device is discoverable by others
                 ensureDiscoverable();
                 return true;

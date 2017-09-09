@@ -48,7 +48,7 @@ public class Interface extends JFrame implements Observer {
 
 	public void initialize() {
 		try {
-			BufferedImage buttonIcon = ImageIO.read(new File("./resources/power_on.png"));
+			BufferedImage buttonIcon = ImageIO.read( getClass().getResourceAsStream("power_on.png"));
 			Font police = new Font("Arial", Font.BOLD, 20);
 			information = new JLabel("Waiting to start...");
 			information.setFont(police);
