@@ -1,11 +1,13 @@
 package remoteserver;
 
+import java.awt.Desktop;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 
 import javax.microedition.io.StreamConnection;
@@ -31,7 +33,9 @@ public class ProcessConnectionThread implements Runnable, Observable {
 		{
 			add("youtube");
 			add("google");
+			add("nav");
 			add("écrire");
+			add("entrer");
 		}
 	};
 
@@ -100,24 +104,56 @@ public class ProcessConnectionThread implements Runnable, Observable {
 					int position = 0;
 					String current_command = "";
 					for (String word : command_line.split(" ")) {
-						System.out.println(word);
 						position++;
 						if (!catchable_command.contains(word)) {
 							additional_arguments += word;
 						}
 						if (catchable_command.contains(word) || position == command_line.split(" ").length) {
-							System.out.println("B1");
 							if (current_command != "") {
 								switch (current_command) {
 								case "youtube":
-									System.out.println("y" + additional_arguments);
+									if (Desktop.isDesktopSupported()) {
+										if(additional_arguments == "abonnement") {
+											Desktop.getDesktop().browse(new URI("https://www.youtube.com/subscriptions"));
+										}
+										else {
+											Desktop.getDesktop().browse(new URI("https://www.youtube.com/results?search_query="+ additional_arguments));
+										}
+										
+									}
 									break;
 								case "google":
-									System.out.println("g" + additional_arguments);
+									if (Desktop.isDesktopSupported()) {
+										Desktop.getDesktop().browse(new URI("http://www.google.com/"));
+									}
 									break;
 								case "écrire":
-									System.out.println("e" + additional_arguments);
+									StringSelection stringSelection = new StringSelection(additional_arguments);
+									Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+									clipboard.setContents(stringSelection, stringSelection);
+
+									Robot robot = new Robot();
+									robot.keyPress(KeyEvent.VK_CONTROL);
+									robot.keyPress(KeyEvent.VK_V);
+									robot.keyRelease(KeyEvent.VK_V);
+									robot.keyRelease(KeyEvent.VK_CONTROL);
 									break;
+								case "entrer":
+									System.out.println("OK");
+									Robot robot2 = new Robot();
+									robot2.keyPress(KeyEvent.VK_ENTER);
+									robot2.keyRelease(KeyEvent.VK_ENTER);
+									break;
+								case "nav":
+									if (Desktop.isDesktopSupported()) {
+										Desktop.getDesktop().browse(new URI(additional_arguments));
+									}
+									break;
+								default:
+									Robot robot3 = new Robot();
+									robot3.keyPress(KeyEvent.VK_ENTER);
+									robot3.keyRelease(KeyEvent.VK_ENTER);
+									
 
 								}
 							}
