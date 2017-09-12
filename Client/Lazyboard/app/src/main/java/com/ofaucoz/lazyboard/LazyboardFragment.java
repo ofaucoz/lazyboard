@@ -106,7 +106,7 @@ public class LazyboardFragment extends Fragment {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
         } else if (mLazyboardService == null) {
-            setupChat();
+            setupElements();
         }
     }
 
@@ -167,9 +167,9 @@ public class LazyboardFragment extends Fragment {
     }
 
     /**
-     * Set up the UI and background operations for chat.
+     * Set up every elements of the layout.
      */
-    private void setupChat() {
+    private void setupElements() {
         mOutEditText.setOnEditorActionListener(mWriteListener);
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
@@ -381,7 +381,7 @@ public class LazyboardFragment extends Fragment {
                 // When the request to enable Bluetooth returns
                 if (resultCode == Activity.RESULT_OK) {
                     // Bluetooth is now enabled, so set up a chat session
-                    setupChat();
+                    setupElements();
                 } else {
                     // User did not enable Bluetooth or an error occurred
                     Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,

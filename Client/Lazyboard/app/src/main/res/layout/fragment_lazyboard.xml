@@ -1,73 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     android:weightSum="1">
 
-
-
     <LinearLayout
-        android:id="@+id/voice_recog"
-        android:layout_width="match_parent"
-        android:layout_height="118dp"
-        android:orientation="vertical"
-        android:weightSum="1"
-        android:layout_weight="0.91">
-
-        <ImageButton
-            android:id="@+id/btnSpeak"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="40dp"
-            android:contentDescription="@string/speak"
-            android:src="@android:drawable/ic_btn_speak_now"
-            android:layout_weight="0.8" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-
-        <EditText
-            android:id="@+id/edit_text_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:textColor="#000000" />
-
-        <Button
-            android:id="@+id/button_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SEND" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/history"
-        android:layout_width="match_parent"
-        android:layout_height="290dp"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <ListView
-            android:id="@+id/history_list"
+        <LinearLayout
+            android:id="@+id/voice_recog"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:stackFromBottom="false"
-            android:divider="#e9e0e0"
-            android:dividerHeight="1dp" />
+            android:layout_height="118dp"
+            android:layout_weight="0.91"
+            android:orientation="vertical"
+            android:weightSum="1">
 
+            <ImageButton
+                android:id="@+id/btnSpeak"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_weight="0.8"
+                android:contentDescription="@string/speak"
+                android:src="@android:drawable/ic_btn_speak_now" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/edit_text_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:textColor="#000000" />
+
+            <Button
+                android:id="@+id/button_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SEND" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/history"
+            android:layout_width="match_parent"
+            android:layout_height="290dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ListView
+                android:id="@+id/history_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="#e9e0e0"
+                android:dividerHeight="1dp"
+                android:stackFromBottom="false" />
+
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
