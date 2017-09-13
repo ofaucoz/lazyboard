@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 return new LazyboardFragment();
             } else {
                 //TODO
-                return new GenericFragment();
+                return new GridCommandFragment();
             }
         }
 
