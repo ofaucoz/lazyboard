@@ -35,7 +35,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class LazyboardFragment extends Fragment {
+public class MainFragment extends Fragment {
 
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
@@ -71,7 +71,7 @@ public class LazyboardFragment extends Fragment {
     private BluetoothAdapter mBluetoothAdapter = null;
 
     /**
-     * Member object for the chat services
+     * Member object for the lazyboard services
      */
     private LazyboardService mLazyboardService = null;
 
@@ -136,7 +136,7 @@ public class LazyboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lazyboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
         btnSpeak = (ImageButton) view.findViewById(R.id.btnSpeak);
         FragmentActivity activity = getActivity();
 

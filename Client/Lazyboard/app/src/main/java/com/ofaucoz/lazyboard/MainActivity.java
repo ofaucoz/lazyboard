@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            LazyboardFragment fragment = new LazyboardFragment();
+            MainFragment fragment = new MainFragment();
             transaction.replace(R.id.sample_content_fragment, fragment);
             transaction.commit();
         }
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             if (position == 1) {
-                return new LazyboardFragment();
+                return new MainFragment();
             } else {
                 //TODO
                 return new GridCommandFragment();
