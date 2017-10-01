@@ -1,11 +1,12 @@
 package com.ofaucoz.lazyboard;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -30,7 +30,14 @@ public class GridCommandFragment extends Fragment {
             R.drawable.youtube,
             R.drawable.google,
             R.drawable.write,
-            R.drawable.nav,
+            R.drawable.nav
+    };
+
+    String[] stringCommands = {
+            "youtube",
+            "google",
+            "write",
+            "nav"
     };
 
     private LazyboardService mLazyboardService = null;
@@ -52,9 +59,9 @@ public class GridCommandFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id) {
-                Toast.makeText(activity,
-                        "pic" + (position + 1) + " selected",
-                        Toast.LENGTH_SHORT).show();
+                    DialogFragment newFragment = DialogCommandFragment.newInstance(
+                            R.string.alert_dialog_two_buttons, stringCommands[position]);
+                    newFragment.show(getActivity().getFragmentManager(), "dialog");
             }
         });
 

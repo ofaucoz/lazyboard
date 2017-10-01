@@ -8,6 +8,9 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +59,17 @@ public class MainActivity extends AppCompatActivity {
         public int getCount() {
             return NUM_PAGES;
         }
+    }
+
+
+    public void doPositiveClick(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    public void doNegativeClick() {
+        // Do stuff here.
+        Toast.makeText(this, "NEGATITVE", Toast.LENGTH_SHORT).show();
+
     }
 
 }

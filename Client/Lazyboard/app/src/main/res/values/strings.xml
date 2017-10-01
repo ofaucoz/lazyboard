@@ -52,4 +52,10 @@ Nam molestie vitae velit ut placerat. Nullam diam odio, ultrices nec erat at, pr
 
 In felis mauris, gravida imperdiet consectetur et, volutpat in massa. Suspendisse semper ut quam non euismod. In hac habitasse platea dictumst. Nulla ultricies ultrices nibh, vel bibendum eros mattis eget. Aliquam eleifend turpis rutrum, tempus purus in, finibus turpis. Vestibulum gravida rutrum erat quis tincidunt. Nullam porttitor, nisl sit amet laoreet dignissim, erat nisl imperdiet ante, nec ultrices nunc tortor in risus. Aenean convallis dui sit amet sapien sagittis, sed tempor enim egestas. Quisque volutpat sollicitudin orci eget sollicitudin. Donec sed urna accumsan, aliquet lectus quis, viverra felis. Cras eget pharetra ante. Vivamus aliquet pretium tellus eget faucibus. Donec mollis vulputate elit, eu volutpat ante auctor id. Nulla laoreet molestie fermentum. Nunc suscipit metus ut luctus vehicula. </string>
 
+    <!-- DialogFragment -->
+    <string name="gotoValue"></string>
+    <string name="confirm_dialog">Confirm</string>
+    <string name="deny_dialog">Nevermind</string>
+    <string name="alert_dialog_two_buttons">Arguments</string>
+
 </resources>
