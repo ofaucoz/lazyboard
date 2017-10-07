@@ -88,6 +88,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("fragment", "NEW ONE");
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         // Get local Bluetooth adapter
