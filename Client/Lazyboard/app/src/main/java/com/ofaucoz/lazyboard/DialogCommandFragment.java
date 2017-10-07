@@ -50,7 +50,7 @@ public class DialogCommandFragment extends DialogFragment {
         builder.setPositiveButton(R.string.confirm_dialog,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        ((MainActivity) getActivity()).doPositiveClick(mInEditText.getText().toString());
+                        ((MainActivity) getActivity()).doPositiveClick(getArguments().getString("command"), mInEditText.getText().toString());
                     }
                 }
         );

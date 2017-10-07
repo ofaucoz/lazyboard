@@ -16,6 +16,7 @@ import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -178,6 +179,7 @@ public class MainFragment extends Fragment {
                 if (null != view) {
                     TextView textView = (TextView) view.findViewById(R.id.edit_text_out);
                     String message = textView.getText().toString();
+                    Log.d("fragment_main", "state = " + mLazyboardService.getState());
                     try {
                         sendMessage(message + "\n");
                     } catch (UnsupportedEncodingException e) {
@@ -234,7 +236,7 @@ public class MainFragment extends Fragment {
      *
      * @param message A string of text to send.
      */
-    private void sendMessage(String message) throws UnsupportedEncodingException {
+    public void sendMessage(String message) throws UnsupportedEncodingException {
         // Check that we're actually connected before trying anything
         if (mLazyboardService.getState() != LazyboardService.STATE_CONNECTED) {
             Toast.makeText(getActivity(), "not connected", Toast.LENGTH_SHORT).show();
@@ -268,6 +270,8 @@ public class MainFragment extends Fragment {
             // If the action is a key-up event on the return key, send the message
             if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_UP) {
                 String message = view.getText().toString();
+                Log.d("sending_service", "state = " + mLazyboardService.getState());
+
                 try {
                     sendMessage(message + "\n");
                 } catch (UnsupportedEncodingException e) {
@@ -419,6 +423,7 @@ public class MainFragment extends Fragment {
         BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
         // Attempt to connect to the device
         mLazyboardService.connect(device, secure);
+        Log.d("fragment_main", "state 2 = " + mLazyboardService.getState());
     }
 
     @Override

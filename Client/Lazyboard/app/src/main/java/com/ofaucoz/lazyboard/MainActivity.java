@@ -9,8 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             MainFragment fragment = new MainFragment();
-            transaction.replace(R.id.sample_content_fragment, fragment);
+            transaction.add(R.id.sample_content_fragment, fragment);
             transaction.commit();
         }
     }
@@ -62,13 +62,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void doPositiveClick(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    public void doPositiveClick(String command, String additional_args) {
+        //Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        MainFragment fragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.sample_content_fragment);
+        try {
+            // we will create a message to be send to the server using the command and additional args
+            fragment.sendMessage("mode commande " + command + " " + additional_args );
+        }
+        catch (UnsupportedEncodingException e){
+            Log.d("dialog_cmd_main", "unsupported");
+        }
+
     }
 
     public void doNegativeClick() {
         // Do stuff here.
-        Toast.makeText(this, "NEGATITVE", Toast.LENGTH_SHORT).show();
 
     }
 
