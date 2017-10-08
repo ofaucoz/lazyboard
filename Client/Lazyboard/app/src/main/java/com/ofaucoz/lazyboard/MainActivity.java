@@ -3,7 +3,6 @@ package com.ofaucoz.lazyboard;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mPager;
 
     private PagerAdapter mPagerAdapter;
+
+    private MainFragment ConnectionMainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             if (position == 1) {
                 MainFragment fragment = new MainFragment();
+                ConnectionMainFragment = fragment;
                 return fragment;
             } else {
                 //TODO
@@ -65,10 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void doPositiveClick(String command, String additional_args) {
         //Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-        MainFragment fragment = new MainFragment();
         try {
             // we will create a message to be send to the server using the command and additional args
-            fragment.sendMessage("mode commande " + command + " " + additional_args);
+            ConnectionMainFragment.sendMessage("mode commande " + command + " " + additional_args);
         } catch (UnsupportedEncodingException e) {
             Log.d("dialog_cmd_main", "unsupported");
         }

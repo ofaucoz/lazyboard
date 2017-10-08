@@ -75,7 +75,6 @@ public class ProcessConnectionThread implements Runnable, Observable {
 		try {
 			String ascii = Character.toString((char) command);
 			if (command >= 32 && command <= 254) {
-				System.out.println(command);
 				textToBeSend += ascii;
 			} else if (command == 10) {
 				if (textToBeSend.startsWith("mode commande")) {
@@ -96,7 +95,6 @@ public class ProcessConnectionThread implements Runnable, Observable {
 					textToBeSend = "";
 				}
 				if (this.mode == 1) {
-					System.out.println("mode 1");
 					// removing "mode commande" if it exists
 					String command_line = textToBeSend.replace("mode commande", "");
 					// get additional arguments, ie "youtube half life" => "half life"
@@ -139,7 +137,6 @@ public class ProcessConnectionThread implements Runnable, Observable {
 									robot.keyRelease(KeyEvent.VK_CONTROL);
 									break;
 								case "entrer":
-									System.out.println("OK");
 									Robot robot2 = new Robot();
 									robot2.keyPress(KeyEvent.VK_ENTER);
 									robot2.keyRelease(KeyEvent.VK_ENTER);
@@ -162,6 +159,7 @@ public class ProcessConnectionThread implements Runnable, Observable {
 						}
 					}
 					textToBeSend = "";
+					this.mode = 0;
 				}
 			} else {
 				notifyObserver("cannot process this command");
