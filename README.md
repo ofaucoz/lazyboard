@@ -7,6 +7,7 @@ Lazyboard's purpose is to remotely send data from a mobile client to a PC server
 - [x] Bluetooth data transfer
 - [x] Voice recognition
 - [x] History
+- [x] Commands 
 
 ### Curently
 
@@ -16,5 +17,6 @@ The project uses UUID, if you want to modify the given UUID you can use the foll
 ``` bash
 uuidgen
 ```
+
 
 
