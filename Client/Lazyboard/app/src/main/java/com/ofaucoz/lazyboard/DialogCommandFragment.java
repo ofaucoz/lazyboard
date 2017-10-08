@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ public class DialogCommandFragment extends DialogFragment {
     }
 
     public static DialogCommandFragment newInstance(int title, String command) {
+        Log.d("dialog_constructor", "current command = " + command);
         DialogCommandFragment dialogCommandFragment = new DialogCommandFragment();
         Bundle args = new Bundle();
         args.putInt("title", title);

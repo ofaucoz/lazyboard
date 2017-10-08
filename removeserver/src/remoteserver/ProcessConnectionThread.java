@@ -79,7 +79,7 @@ public class ProcessConnectionThread implements Runnable, Observable {
 			} else if (command == 10) {
 				if (textToBeSend.startsWith("mode commande")) {
 					this.mode = 1;
-				} else if (textToBeSend.startsWith("mode écriture")) {
+				} else {
 					this.mode = 0;
 				}
 				if (this.mode == 0) {
@@ -111,18 +111,24 @@ public class ProcessConnectionThread implements Runnable, Observable {
 								switch (current_command) {
 								case "youtube":
 									if (Desktop.isDesktopSupported()) {
-										if(additional_arguments == "abonnement") {
-											Desktop.getDesktop().browse(new URI("https://www.youtube.com/subscriptions"));
+										if (additional_arguments == "abonnement") {
+											Desktop.getDesktop()
+													.browse(new URI("https://www.youtube.com/subscriptions"));
+										} else {
+											Desktop.getDesktop()
+													.browse(new URI("https://www.youtube.com/results?search_query="
+															+ additional_arguments));
 										}
-										else {
-											Desktop.getDesktop().browse(new URI("https://www.youtube.com/results?search_query="+ additional_arguments));
-										}
-										
+
 									}
 									break;
 								case "google":
 									if (Desktop.isDesktopSupported()) {
-										Desktop.getDesktop().browse(new URI("http://www.google.com/"));
+										if (additional_arguments != "") {
+											Desktop.getDesktop().browse(new URI("https://www.google.at/search?q=" + additional_arguments));
+										} else {
+											Desktop.getDesktop().browse(new URI("http://www.google.com/"));
+										}
 									}
 									break;
 								case "écrire":
@@ -150,7 +156,6 @@ public class ProcessConnectionThread implements Runnable, Observable {
 									Robot robot3 = new Robot();
 									robot3.keyPress(KeyEvent.VK_ENTER);
 									robot3.keyRelease(KeyEvent.VK_ENTER);
-									
 
 								}
 							}
@@ -159,7 +164,6 @@ public class ProcessConnectionThread implements Runnable, Observable {
 						}
 					}
 					textToBeSend = "";
-					this.mode = 0;
 				}
 			} else {
 				notifyObserver("cannot process this command");

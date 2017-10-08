@@ -32,13 +32,6 @@ public class MainActivity extends AppCompatActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(CurrentPosition);
-
-        /*if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            MainFragment fragment = new MainFragment();
-            transaction.add(R.id.sample_content_fragment, fragment);
-            transaction.commit();
-        }*/
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
@@ -68,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     public void doPositiveClick(String command, String additional_args) {
         //Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         try {
-            // we will create a message to be send to the server using the command and additional args
-            ConnectionMainFragment.sendMessage("mode commande " + command + " " + additional_args);
+            ConnectionMainFragment.sendMessage("mode commande " + command + " " + additional_args + "\n");
+
         } catch (UnsupportedEncodingException e) {
             Log.d("dialog_cmd_main", "unsupported");
         }

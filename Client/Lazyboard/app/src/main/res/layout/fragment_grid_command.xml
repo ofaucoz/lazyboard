@@ -27,22 +27,5 @@
             android:layout_height="0dp"
             android:layout_weight="1">
         </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="50dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/argument_text_out"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#000000"
-                android:inputType="text"
-                android:hint="Enter text that goes with the command"
-                android:layout_gravity="center_horizontal|center" />
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -42,10 +42,6 @@ public class GridCommandFragment extends Fragment {
 
     private LazyboardService mLazyboardService = null;
 
-    private StringBuffer mOutStringBuffer;
-
-    private EditText mOutEditText;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,15 +61,7 @@ public class GridCommandFragment extends Fragment {
             }
         });
 
-        mOutStringBuffer = new StringBuffer("");
-
         return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mOutEditText = (EditText) view.findViewById(R.id.argument_text_out);
-        mOutEditText.setOnEditorActionListener(mWriteListener);
     }
 
     @Override
@@ -98,47 +86,6 @@ public class GridCommandFragment extends Fragment {
             }
         }
     }
-
-    /**
-     * Sends a message.
-     *
-     * @param message A string of text to send.
-     */
-    private void sendMessage(String message) throws UnsupportedEncodingException {
-        // Check that we're actually connected before trying anything
-        if (mLazyboardService.getState() != LazyboardService.STATE_CONNECTED) {
-            Toast.makeText(getActivity(), "not connected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Check that there's actually something to send
-        if (message.length() > 0) {
-            char[] send = message.toCharArray();
-            for (char element : send) {
-                mLazyboardService.write((int) element);
-            }
-
-            // Reset out string buffer to zero and clear the edit text field
-            mOutStringBuffer.setLength(0);
-            mOutEditText.setText(mOutStringBuffer);
-        }
-    }
-
-    private TextView.OnEditorActionListener mWriteListener
-            = new TextView.OnEditorActionListener() {
-        public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-            // If the action is a key-up event on the return key, send the message
-            if (actionId == EditorInfo.IME_NULL && event.getAction() == KeyEvent.ACTION_UP) {
-                String message = view.getText().toString();
-                try {
-                    sendMessage(message + "\n");
-                } catch (UnsupportedEncodingException e) {
-                    throw new AssertionError("UTF-8 is unknown");
-                }
-            }
-            return true;
-        }
-    };
 
     public class ImageAdapter extends BaseAdapter {
         private Context context;
