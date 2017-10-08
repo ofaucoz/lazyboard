@@ -39,4 +39,23 @@
     <string name="app_name">Lazyboard</string>
     <string name="speak">Speak</string>
 
+    <!-- Lorem Ipsum -->
+    <string name="lorem_ipsum">
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pretium iaculis ipsum in suscipit. Cras porta sapien nunc, eget posuere lacus cursus vel. Sed suscipit justo ut erat convallis fringilla. Nunc purus neque, pellentesque ut imperdiet quis, accumsan vitae velit. Pellentesque viverra nulla et velit iaculis, faucibus facilisis risus rutrum. Fusce mi diam, tempus eu finibus eget, feugiat sit amet enim. Nunc et lectus efficitur, porta elit et, ultrices orci. Morbi sagittis posuere diam, nec molestie leo semper posuere. Phasellus euismod nisl non erat elementum, vitae luctus lorem luctus. Proin hendrerit justo quis efficitur consectetur. Praesent convallis, justo quis consectetur sodales, turpis enim vulputate nulla, non tempor magna ante nec enim.
+
+Fusce faucibus neque odio, eget tempor lectus pharetra in. Phasellus eu lacus ultricies, malesuada diam vitae, mattis sapien. Aenean auctor dolor in mauris aliquet eleifend. Sed fermentum hendrerit leo ac pharetra. Quisque pellentesque mauris arcu, at malesuada libero mollis nec. Cras sed libero tempus nunc mollis elementum. Cras hendrerit eu tellus ac consequat. Cras sed nisi ac velit accumsan mollis. Nullam dapibus nunc at vestibulum efficitur.
+
+Mauris a libero eu mauris bibendum vehicula. Fusce gravida nec sem vel tristique. Sed sed elit velit. Nullam eros mauris, dictum sed erat vitae, congue iaculis ante. Sed volutpat erat sed arcu venenatis posuere. Sed justo urna, porta laoreet augue vel, tincidunt congue eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent placerat erat ac suscipit pharetra.
+
+Nam molestie vitae velit ut placerat. Nullam diam odio, ultrices nec erat at, pretium facilisis risus. Aliquam erat volutpat. In vestibulum mauris sit amet nisi consequat auctor. Sed ut tortor eget leo rutrum facilisis. Vivamus leo lorem, tincidunt a lorem eget, semper dignissim elit. Pellentesque ac leo vulputate, tempus nisl sed, finibus nibh. Quisque imperdiet eleifend lacus, sit amet tincidunt mi posuere eu. Donec ultricies, dolor sed commodo vehicula, ex sapien malesuada urna, at lobortis ligula nisl sit amet justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum mauris a pharetra ultricies. Quisque efficitur est id eleifend imperdiet. Nunc malesuada scelerisque gravida. Suspendisse potenti. Nulla pellentesque cursus libero, eu vulputate neque suscipit et. Curabitur convallis urna magna, vitae dignissim sem egestas id.
+
+In felis mauris, gravida imperdiet consectetur et, volutpat in massa. Suspendisse semper ut quam non euismod. In hac habitasse platea dictumst. Nulla ultricies ultrices nibh, vel bibendum eros mattis eget. Aliquam eleifend turpis rutrum, tempus purus in, finibus turpis. Vestibulum gravida rutrum erat quis tincidunt. Nullam porttitor, nisl sit amet laoreet dignissim, erat nisl imperdiet ante, nec ultrices nunc tortor in risus. Aenean convallis dui sit amet sapien sagittis, sed tempor enim egestas. Quisque volutpat sollicitudin orci eget sollicitudin. Donec sed urna accumsan, aliquet lectus quis, viverra felis. Cras eget pharetra ante. Vivamus aliquet pretium tellus eget faucibus. Donec mollis vulputate elit, eu volutpat ante auctor id. Nulla laoreet molestie fermentum. Nunc suscipit metus ut luctus vehicula. </string>
+
+    <!-- DialogFragment -->
+    <string name="gotoValue"></string>
+    <string name="confirm_dialog">Confirm</string>
+    <string name="deny_dialog">Nevermind</string>
+    <string name="alert_dialog_two_buttons">Arguments</string>
+
 </resources>
