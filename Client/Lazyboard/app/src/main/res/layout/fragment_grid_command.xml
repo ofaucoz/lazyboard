@@ -7,25 +7,21 @@
         android:id="@+id/LinearLayout01"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#f0f0f0">
 
         <GridView
             android:id="@+id/grid_command"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:columnWidth="150dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:columnWidth="100dp"
+            android:drawSelectorOnTop="true"
             android:gravity="center"
-            android:horizontalSpacing="10dp"
             android:numColumns="auto_fit"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp">
-        </GridView>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-        </FrameLayout>
+            android:verticalSpacing="5dp"
+            android:focusable="true"
+            android:clickable="true"/>
     </LinearLayout>
 </ScrollView>

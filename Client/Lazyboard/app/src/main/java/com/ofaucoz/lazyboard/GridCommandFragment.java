@@ -1,7 +1,11 @@
 package com.ofaucoz.lazyboard;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -21,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 /*
  *  GenericFragment for the slide views
@@ -50,7 +56,7 @@ public class GridCommandFragment extends Fragment {
 
 
         GridView gridview = (GridView) rootView.findViewById(R.id.grid_command);
-        gridview.setAdapter(new ImageAdapter(activity));
+        gridview.setAdapter(new ImageAdapter(activity, R.layout.gridview_items, getData()));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
@@ -87,16 +93,15 @@ public class GridCommandFragment extends Fragment {
         }
     }
 
-    public class ImageAdapter extends BaseAdapter {
+    public class ImageAdapter extends ArrayAdapter {
         private Context context;
-
-        public ImageAdapter(Context c) {
-            context = c;
-        }
-
-        //---returns the number of images---
-        public int getCount() {
-            return imageIDs.length;
+        private int layoutResourceId;
+        private ArrayList data = new ArrayList();
+        public ImageAdapter(Context context, int layoutResourceId, ArrayList data) {
+            super(context, layoutResourceId, data);
+            this.layoutResourceId = layoutResourceId;
+            this.context = context;
+            this.data = data;
         }
 
         //---returns the ID of an item---
@@ -110,18 +115,38 @@ public class GridCommandFragment extends Fragment {
 
         //---returns an ImageView view---
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
-            if (convertView == null) {
-                imageView = new ImageView(context);
-                imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(5, 5, 5, 5);
+            View row = convertView;
+            ViewHolder holder = null;
+            if (row == null) {
+                LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+                row = inflater.inflate(layoutResourceId, parent, false);
+                holder = new ViewHolder();
+                holder.imageTitle = (TextView) row.findViewById(R.id.grid_text);
+                holder.image = (ImageView) row.findViewById(R.id.grid_image);
+                row.setTag(holder);
             } else {
-                imageView = (ImageView) convertView;
+                holder = (ViewHolder) row.getTag();
             }
-            imageView.setImageResource(imageIDs[position]);
-            return imageView;
+
+            ImageItem item = (ImageItem) data.get(position);
+            holder.imageTitle.setText(item.getTitle());
+            holder.image.setImageBitmap(item.getImage());
+            return row;
         }
+        class ViewHolder {
+            TextView imageTitle;
+            ImageView image;
+        }
+    }
+
+    private ArrayList<ImageItem> getData() {
+        final ArrayList<ImageItem> imageItems = new ArrayList<>();
+        TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
+        for (int i = 0; i < imgs.length(); i++) {
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
+            imageItems.add(new ImageItem(bitmap, "Image#" + i));
+        }
+        return imageItems;
     }
 }
 

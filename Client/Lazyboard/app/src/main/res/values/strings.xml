@@ -58,4 +58,12 @@ In felis mauris, gravida imperdiet consectetur et, volutpat in massa. Suspendiss
     <string name="deny_dialog">Nevermind</string>
     <string name="alert_dialog_two_buttons">Arguments</string>
 
+    <!-- GridView array -->
+    <string-array name="image_ids">
+        <item>@drawable/youtube</item>
+        <item>@drawable/google</item>
+        <item>@drawable/write</item>
+        <item>@drawable/nav</item>
+    </string-array>
+
 </resources>
