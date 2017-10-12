@@ -34,8 +34,13 @@ public class ProcessConnectionThread implements Runnable, Observable {
 			add("youtube");
 			add("google");
 			add("nav");
-			add("écrire");
+			add("write");
 			add("entrer");
+			add("facebook");
+			add("gmail");
+			add("twitch");
+			add("tugraz");
+			add("download");
 		}
 	};
 
@@ -79,7 +84,7 @@ public class ProcessConnectionThread implements Runnable, Observable {
 			} else if (command == 10) {
 				if (textToBeSend.startsWith("mode commande")) {
 					this.mode = 1;
-				} else if (textToBeSend.startsWith("mode écriture")) {
+				} else {
 					this.mode = 0;
 				}
 				if (this.mode == 0) {
@@ -96,36 +101,51 @@ public class ProcessConnectionThread implements Runnable, Observable {
 				}
 				if (this.mode == 1) {
 					// removing "mode commande" if it exists
-					String command_line = textToBeSend.replace("mode commande", "");
+					String command_line = textToBeSend.replace("mode commande ", "");
 					// get additional arguments, ie "youtube half life" => "half life"
 					String additional_arguments = "";
 					int position = 0;
 					String current_command = "";
 					for (String word : command_line.split(" ")) {
+						System.out.println(word);
 						position++;
 						if (!catchable_command.contains(word)) {
 							additional_arguments += word;
 						}
+						else {
+							current_command = word;
+						}
 						if (catchable_command.contains(word) || position == command_line.split(" ").length) {
-							if (current_command != "") {
+							System.out.println("length" + command_line.split(" ").length);
+							System.out.println("true1");
+							if (current_command != "" && position == command_line.split(" ").length) {
+								System.out.println("true2");
 								switch (current_command) {
 								case "youtube":
+									System.out.println("true3");
 									if (Desktop.isDesktopSupported()) {
-										if(additional_arguments == "abonnement") {
-											Desktop.getDesktop().browse(new URI("https://www.youtube.com/subscriptions"));
+										if (additional_arguments.contains("subscription")) {
+											Desktop.getDesktop()
+													.browse(new URI("https://www.youtube.com/subscriptions"));
+										} else {
+											Desktop.getDesktop()
+													.browse(new URI("https://www.youtube.com/results?search_query="
+															+ additional_arguments));
 										}
-										else {
-											Desktop.getDesktop().browse(new URI("https://www.youtube.com/results?search_query="+ additional_arguments));
-										}
-										
+
 									}
 									break;
 								case "google":
 									if (Desktop.isDesktopSupported()) {
-										Desktop.getDesktop().browse(new URI("http://www.google.com/"));
+										if (additional_arguments != "") {
+											Desktop.getDesktop().browse(
+													new URI("https://www.google.at/search?q=" + additional_arguments));
+										} else {
+											Desktop.getDesktop().browse(new URI("http://www.google.com/"));
+										}
 									}
 									break;
-								case "écrire":
+								case "write":
 									StringSelection stringSelection = new StringSelection(additional_arguments);
 									Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 									clipboard.setContents(stringSelection, stringSelection);
@@ -146,20 +166,44 @@ public class ProcessConnectionThread implements Runnable, Observable {
 										Desktop.getDesktop().browse(new URI(additional_arguments));
 									}
 									break;
+								case "facebook":
+									if (Desktop.isDesktopSupported()) {
+										Desktop.getDesktop().browse(new URI("https://www.facebook.com/"));
+									}
+									break;
+								case "gmail":
+									if (Desktop.isDesktopSupported()) {
+										Desktop.getDesktop().browse(new URI("https://mail.google.com/mail/u/0/#inbox"));
+									}
+									break;
+								case "twitch":
+									if (Desktop.isDesktopSupported()) {
+										Desktop.getDesktop().browse(new URI("https://go.twitch.tv/directory/all"));
+									}
+									break;
+								case "tugraz":
+									if (Desktop.isDesktopSupported()) {
+										Desktop.getDesktop()
+												.browse(new URI("https://online.tugraz.at/tug_online/webnav.ini"));
+									}
+									break;
+								case "download":
+									if (Desktop.isDesktopSupported()) {
+										Desktop.getDesktop()
+												.browse(new URI("https://www.extreme-down.pro/home.html"));
+									}
+									break;
 								default:
 									Robot robot3 = new Robot();
 									robot3.keyPress(KeyEvent.VK_ENTER);
 									robot3.keyRelease(KeyEvent.VK_ENTER);
-									
 
 								}
 							}
-							current_command = word;
 							additional_arguments = "";
 						}
 					}
 					textToBeSend = "";
-					this.mode = 0;
 				}
 			} else {
 				notifyObserver("cannot process this command");
