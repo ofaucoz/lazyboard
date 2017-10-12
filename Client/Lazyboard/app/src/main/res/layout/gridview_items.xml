@@ -2,7 +2,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:background="#beb8b8"
+    android:background="#f5f3f3"
     android:orientation="vertical"
     android:padding="5dp">
 

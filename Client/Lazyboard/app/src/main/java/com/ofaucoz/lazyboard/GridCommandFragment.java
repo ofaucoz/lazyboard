@@ -142,9 +142,10 @@ public class GridCommandFragment extends Fragment {
     private ArrayList<ImageItem> getData() {
         final ArrayList<ImageItem> imageItems = new ArrayList<>();
         TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
+        TypedArray imgs_strings = getResources().obtainTypedArray(R.array.image_string);
         for (int i = 0; i < imgs.length(); i++) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            imageItems.add(new ImageItem(bitmap, "Image#" + i));
+            imageItems.add(new ImageItem(bitmap, imgs_strings.getString(i)));
         }
         return imageItems;
     }
