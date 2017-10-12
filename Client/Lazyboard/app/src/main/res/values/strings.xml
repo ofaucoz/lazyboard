@@ -64,13 +64,24 @@ In felis mauris, gravida imperdiet consectetur et, volutpat in massa. Suspendiss
         <item>@drawable/google</item>
         <item>@drawable/write</item>
         <item>@drawable/nav</item>
+        <item>@drawable/facebook</item>
+        <item>@drawable/gmail</item>
+        <item>@drawable/twitch</item>
+        <item>@drawable/tugraz</item>
+        <item>@drawable/download</item>
     </string-array>
+
     <!-- GridView array strings-->
     <string-array name="image_string">
         <item><string>youtube</string></item>
         <item><string>google</string></item>
         <item><string>write</string></item>
         <item><string>nav</string></item>
+        <item><string>facebook</string></item>
+        <item><string>gmail</string></item>
+        <item><string>twitch</string></item>
+        <item><string>tugraz</string></item>
+        <item><string>download</string></item>
     </string-array>
 
 </resources>

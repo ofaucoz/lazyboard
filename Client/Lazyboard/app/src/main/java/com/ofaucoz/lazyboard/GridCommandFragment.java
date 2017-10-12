@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.app.FragmentManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,20 +33,7 @@ import java.util.ArrayList;
  *  GenericFragment for the slide views
  */
 public class GridCommandFragment extends Fragment {
-    Integer[] imageIDs = {
-            R.drawable.youtube,
-            R.drawable.google,
-            R.drawable.write,
-            R.drawable.nav
-    };
-
-    String[] stringCommands = {
-            "youtube",
-            "google",
-            "write",
-            "nav"
-    };
-
+    TypedArray stringCommands = null;
     private LazyboardService mLazyboardService = null;
 
     @Override
@@ -58,12 +46,13 @@ public class GridCommandFragment extends Fragment {
         GridView gridview = (GridView) rootView.findViewById(R.id.grid_command);
         gridview.setAdapter(new ImageAdapter(activity, R.layout.gridview_items, getData()));
 
+        stringCommands = getResources().obtainTypedArray(R.array.image_string);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id) {
-                    DialogFragment newFragment = DialogCommandFragment.newInstance(
-                            R.string.alert_dialog_two_buttons, stringCommands[position]);
-                    newFragment.show(getActivity().getFragmentManager(), "dialog");
+                DialogFragment newFragment = DialogCommandFragment.newInstance(
+                        R.string.alert_dialog_two_buttons, stringCommands.getString(position));
+                newFragment.show(getActivity().getFragmentManager(), "dialog");
             }
         });
 
@@ -97,6 +86,7 @@ public class GridCommandFragment extends Fragment {
         private Context context;
         private int layoutResourceId;
         private ArrayList data = new ArrayList();
+
         public ImageAdapter(Context context, int layoutResourceId, ArrayList data) {
             super(context, layoutResourceId, data);
             this.layoutResourceId = layoutResourceId;
@@ -133,6 +123,7 @@ public class GridCommandFragment extends Fragment {
             holder.image.setImageBitmap(item.getImage());
             return row;
         }
+
         class ViewHolder {
             TextView imageTitle;
             ImageView image;
@@ -142,10 +133,11 @@ public class GridCommandFragment extends Fragment {
     private ArrayList<ImageItem> getData() {
         final ArrayList<ImageItem> imageItems = new ArrayList<>();
         TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
-        TypedArray imgs_strings = getResources().obtainTypedArray(R.array.image_string);
+        stringCommands = getResources().obtainTypedArray(R.array.image_string);
         for (int i = 0; i < imgs.length(); i++) {
+            Log.d("getData" , "current = " + i);
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            imageItems.add(new ImageItem(bitmap, imgs_strings.getString(i)));
+            imageItems.add(new ImageItem(bitmap, stringCommands.getString(i)));
         }
         return imageItems;
     }
